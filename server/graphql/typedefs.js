@@ -9,8 +9,7 @@ module.exports = gql`
     }
 
     input LoginInput {
-        email: String
-        username: String
+        username: String!
         password: String!
     }
 
@@ -44,7 +43,7 @@ module.exports = gql`
     }
 
     type Mutation {
-        login: Token!
+        login(loginInput: LoginInput!): Token!
         register(registerInput: RegisterInput!): Token!
         createFpReward: FpReward!
         deleteFpReward: String!

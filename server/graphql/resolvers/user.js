@@ -6,6 +6,7 @@ const User = require("../../models/user");
 const { JWT_SECRET } = require("../../config");
 
 const validateRegistration = require("../../utils/validate_registration");
+const validateLogin = require("../../utils/validate-login");
 
 const Query = {
     getUsers: async () => {
@@ -72,7 +73,32 @@ const Mutation = {
             throw err;
         }
     },
-    login: (_, loginInput) => {}
+    login: async (_, { loginInput }) => {
+        try {
+            const { errors, valid } = validateLogin(loginInput);
+            if (!valid) {
+                throw new UserInputError("Input data invalid", { errors });
+            }
+
+            const { username, password } = loginInput;
+
+            const user = await User.findOne({ username });
+            if (!(await bcrypt.compare(password, user.password))) {
+                throw new ApolloError("Wrong password");
+            }
+
+            const token = jwt.sign(
+                user.id,
+                JWT_SECRET
+            );
+            return {
+                user,
+                token: `Token ${token}`
+            };
+        } catch (err) {
+            throw err;
+        }
+    }
 };
 
 module.exports = { Query, Mutation };

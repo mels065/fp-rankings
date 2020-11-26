@@ -22,5 +22,5 @@ module.exports = (registerInput) => {
         errors.password = "Password and repeat password must match";
     }
 
-    return { errors, valid: Object.keys(errors).length == 0 };
+    return { errors, valid: Object.keys(errors).length === 0 };
 }
