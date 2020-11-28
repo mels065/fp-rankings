@@ -4,8 +4,7 @@ const userSchema = new Schema({
     email: String,
     username: String,
     password: String,
-    createdOn: String,
-    fpRewards: [{ type: Schema.Types.ObjectId, ref: 'fprewards' }]
+    createdOn: String
 });
 
 module.exports = model('User', userSchema);
