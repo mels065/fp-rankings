@@ -88,7 +88,7 @@ const Mutation = {
             }
 
             const token = jwt.sign(
-                user.id,
+                user,
                 JWT_SECRET
             );
             return {
