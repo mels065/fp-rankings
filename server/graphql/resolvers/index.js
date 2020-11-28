@@ -1,6 +1,7 @@
 const ObjectID = require('mongoose').Types.ObjectId;
 
 const UserResolver = require('./user');
+const FpRewardResolver = require('./fp-reward');
 const User = require('../../models/user');
 const FpReward = require('../../models/fp-reward');
 
@@ -22,9 +23,11 @@ module.exports = {
         }
     },
     Query: {
-        ...UserResolver.Query
+        ...UserResolver.Query,
+        ...FpRewardResolver.Query,
     },
     Mutation: {
-        ...UserResolver.Mutation
+        ...UserResolver.Mutation,
+        ...FpRewardResolver.Mutation,
     }
 }

@@ -39,9 +39,9 @@ module.exports = gql`
 
     type Query {
         getUsers: [User]!
-        getUser(id: ID!): User
-        getFpRewards: [FpReward]
-        getFpReward: FpReward
+        getUser(id: ID!): User!
+        getFpRewards: [FpReward]!
+        getFpReward(id: ID!): FpReward!
     }
 
     type Mutation {
