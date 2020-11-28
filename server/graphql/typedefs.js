@@ -30,9 +30,11 @@ module.exports = gql`
 
     type FpReward {
         id: ID!
-        fp: Int!
+        amount: Int!
         reason: String
         createdAt: String!
+        recipient: User!
+        creator: User!
     }
 
     type Query {

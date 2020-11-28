@@ -10,6 +10,7 @@ const getFp = async (id) => (await FpReward.find({ recipient: id })).reduce(
 
 module.exports = {
     User: {
+        fpRewards: async({ id }) => await FpReward.find({ recipient: id }),
         fp: async ({ id }) => await getFp(id),
         ranking: async ({ id }) => {
             const users = (await User.find({})).sort(async (user1, user2) => (
