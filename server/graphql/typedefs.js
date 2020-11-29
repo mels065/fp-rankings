@@ -32,7 +32,7 @@ module.exports = gql`
         id: ID!
         amount: Int!
         reason: String
-        createdAt: String!
+        createdOn: String!
         recipient: User!
         creator: User!
     }
@@ -47,7 +47,7 @@ module.exports = gql`
     type Mutation {
         login(loginInput: LoginInput!): Token!
         register(registerInput: RegisterInput!): Token!
-        createFpReward: FpReward!
+        createFpReward(recipient: ID!, reason: String!, amount: Int!): FpReward!
         deleteFpReward: String!
     }
 `;

@@ -1,4 +1,5 @@
 const FpReward = require('../../models/fp-reward');
+const auth = require('../../utils/authentication');
 
 const Query = {
     getFpRewards: async () => {
@@ -17,6 +18,28 @@ const Query = {
     },
 };
 
-const Mutation = {};
+const Mutation = {
+    createFpReward: async (
+        _,
+        {
+            recipient,
+            reason,
+            amount
+        },
+        context,
+    ) => {
+        const user = auth(context);
+
+        const fpReward = await FpReward.create({
+            creator: user.id,
+            recipient,
+            reason,
+            amount,
+            createdAt: new Date().toISOString()
+        });
+
+        return fpReward;
+    },
+};
 
 module.exports = { Query, Mutation };

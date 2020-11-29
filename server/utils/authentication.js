@@ -5,10 +5,10 @@ const { JWT_SECRET } = require("../config");
 
 module.exports = function (context) {
     const { req } = context;
-    const auth = req.heders.authorization;
+    const auth = req.headers.authorization;
 
     if (!auth) {
-        throw new Error("Authentication token must be present");
+        throw new Error("Authentication header must be present");
     }
 
     const token = auth.split("Token ")[1];
