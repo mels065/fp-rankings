@@ -48,6 +48,6 @@ module.exports = gql`
         login(loginInput: LoginInput!): Token!
         register(registerInput: RegisterInput!): Token!
         createFpReward(recipient: ID!, reason: String!, amount: Int!): FpReward!
-        deleteFpReward: String!
+        deleteFpReward(id: ID!): String!
     }
 `;

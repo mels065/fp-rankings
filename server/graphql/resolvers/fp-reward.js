@@ -28,10 +28,10 @@ const Mutation = {
         },
         context,
     ) => {
-        const user = auth(context);
+        const userId = auth(context);
 
         const fpReward = await FpReward.create({
-            creator: user.id,
+            creator: userId,
             recipient,
             reason,
             amount,
@@ -40,6 +40,22 @@ const Mutation = {
 
         return fpReward;
     },
+    
+    deleteFpReward: async (_, { id }, context) => {
+        const userId = auth(context);
+
+        try {
+            const fpReward = await FpReward.findById(id);
+            if (fpReward.creator == userId) {
+                fpReward.remove();
+                return "FP Reward has been deleted";
+            } else {
+                return "You do not have the authorization to delete this FP Reward";
+            }
+        } catch (err) {
+            throw err;
+        }
+    }
 };
 
 module.exports = { Query, Mutation };
