@@ -22,6 +22,12 @@ module.exports = {
             else return -1;
         }
     },
+
+    FpReward: {
+        creator: async ({ creator: creatorId }) => await User.findById(creatorId),
+        recipient: async ({ recipient: recipientId }) => await User.findById(recipientId),
+    },
+
     Query: {
         ...UserResolver.Query,
         ...FpRewardResolver.Query,
