@@ -4,7 +4,7 @@ const auth = require('../../utils/authentication');
 const Query = {
     getFpRewards: async () => {
         try {
-            return await FpReward.find({});
+            return await FpReward.find({}).sort('-createdOn');
         } catch (err) {
             throw new Error(err);
         }
@@ -35,7 +35,7 @@ const Mutation = {
             recipient,
             reason,
             amount,
-            createdAt: new Date().toISOString()
+            createdOn: new Date().toISOString()
         });
 
         return fpReward;
