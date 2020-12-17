@@ -1,13 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ApolloClient, {
+  InMemoryCache,
+  createHttpLink,
+  ApolloProvider
+} from '@apollo/client';
+
+import config from "./config";
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 
 import 'semantic-ui-css/semantic.min.css'
 
+const httpLink = createHttpLink({
+  uri: config.URI
+})
+
+const client = {
+  link: httpLink,
+  cache: new InMemoryCache(),
+}
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
