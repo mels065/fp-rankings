@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ApolloClient, {
+import {
+  ApolloClient,
   InMemoryCache,
   createHttpLink,
   ApolloProvider
@@ -16,17 +17,15 @@ const httpLink = createHttpLink({
   uri: config.URI
 })
 
-const client = {
+const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
-}
+});
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
-  </React.StrictMode>,
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>,
   document.getElementById('root')
 );
 

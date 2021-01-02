@@ -83,8 +83,13 @@ const Mutation = {
             const { username, password } = loginInput;
 
             const user = await User.findOne({ username });
+            if (!user) {
+                errors.general = "User does not exist"
+                throw new UserInputError("User does not exist", { errors });
+            }
             if (!(await bcrypt.compare(password, user.password))) {
-                throw new ApolloError("Wrong password");
+                errors.general = "Wrong password";
+                throw new UserInputError("Wrong password", { errors });
             }
 
             const token = jwt.sign(
