@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import {
     Button,
@@ -7,9 +7,12 @@ import {
     List,
 } from 'semantic-ui-react';
 
+import { AuthContext } from '../../../context/auth';
+
 import './style.css';
 
 function LoginForm() {
+    const context = useContext(AuthContext);
     const [errors, setErrors] = useState({});
     const [formState, setFormState] = useState({
         username: '',
@@ -19,13 +22,15 @@ function LoginForm() {
     const [loginUser, { loading }] = useMutation(
         LOGIN_USER,
         {
-            update(proxy, result) {
-                console.log(result)
+            update(_, { data: { login: data } }) {
+                console.log(data);
+                context.login(data);
             },
             onError(err) {
+                console.log(err)
                 setErrors(err.graphQLErrors[0].extensions.exception.errors);
             },
-            variables: formState        
+            variables: formState  
         }
     );
 

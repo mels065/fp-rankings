@@ -28,10 +28,10 @@ const Mutation = {
         },
         context,
     ) => {
-        const userId = auth(context);
+        const user = auth(context);
 
         const fpReward = await FpReward.create({
-            creator: userId,
+            creator: user.id,
             recipient,
             reason,
             amount,
@@ -42,11 +42,11 @@ const Mutation = {
     },
     
     deleteFpReward: async (_, { id }, context) => {
-        const userId = auth(context);
+        const user = auth(context);
 
         try {
             const fpReward = await FpReward.findById(id);
-            if (fpReward.creator == userId) {
+            if (fpReward.creator == user.id) {
                 fpReward.remove();
                 return "FP Reward has been deleted";
             } else {

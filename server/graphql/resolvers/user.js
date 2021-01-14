@@ -60,13 +60,18 @@ const Mutation = {
                 password: newPassword,
                 createdOn: new Date().toISOString()
             });
-            const id = user.id;
+
+            const payload = {
+                id: user.id,
+                username: user.username,
+                email: user.email
+            };
             const token = jwt.sign(
-                id,
+                payload,
                 JWT_SECRET
             );
             return {
-                user,
+                user: payload,
                 token: `Token ${token}`
             };
         } catch (err) {
@@ -92,12 +97,17 @@ const Mutation = {
                 throw new UserInputError("Wrong password", { errors });
             }
 
+            const payload = {
+                id: user.id,
+                username: user.username,
+                email: user.email
+            };
             const token = jwt.sign(
-                user.id,
+                payload,
                 JWT_SECRET
             );
             return {
-                user,
+                user: payload,
                 token: `Token ${token}`
             };
         } catch (err) {

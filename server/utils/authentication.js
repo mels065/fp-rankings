@@ -18,8 +18,8 @@ module.exports = function (context) {
     }
 
     try {
-        const userId = jwt.verify(token, JWT_SECRET);
-        return userId;
+        const user = jwt.verify(token, JWT_SECRET);
+        return user;
     } catch(err) {
         throw new AuthenticationError("Invalid or expired token");
     }
