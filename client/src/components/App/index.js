@@ -10,6 +10,8 @@ import LoginRegisterPage from '../pages/Login-Register';
 import RankingsPage from '../pages/Rankings';
 import UserPage from '../pages/User';
 
+import ProtectedRoute from '../routes/ProtectedRoute';
+
 import { AuthProvider } from '../../context/auth';
 
 import './style.css';
@@ -20,12 +22,12 @@ function App() {
       <Router>
         <AuthProvider>
           <Switch>
-            <Route path="/users/:userId">
+            <ProtectedRoute path="/users/:userId">
               <UserPage />
-            </Route>
-            <Route path="/rankings">
+            </ProtectedRoute>
+            <ProtectedRoute path="/rankings">
               <RankingsPage />
-            </Route>
+            </ProtectedRoute>
             <Route path="/login">
               <LoginRegisterPage/>
             </Route>
