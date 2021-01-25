@@ -2,7 +2,8 @@ import React, { createContext, useReducer } from 'react';
 import jwtDecode from 'jwt-decode';
 
 const initialState = {
-    user: null
+    user: null,
+    isLoggedIn: false
 };
 
 const token = localStorage.getItem('jwtToken');
@@ -10,10 +11,12 @@ if (token) {
     const decodedToken = jwtDecode(token.split('Token ')[1]);
     console.log(decodedToken);
     initialState.user = decodedToken;
+    initialState.isLoggedIn = true;
 }
 
 const AuthContext = createContext({
     user: null,
+    isLoggedIn: false,
     login: (data) => {},
     logout: () => {}
 });
@@ -23,13 +26,15 @@ function authReducer(state, action) {
         case 'LOGIN': {
             return {
                 ...state,
-                user: action.payload.user
+                user: action.payload.user,
+                isLoggedIn: true
             }
         }
         case 'LOGOUT': {
             return {
                 ...state,
                 user: null,
+                isLoggedIn: false
             }
         }
         default: {
@@ -58,6 +63,7 @@ function AuthProvider(props) {
         <AuthContext.Provider
             value={{
                 user: state.user,
+                isLoggedIn: state.isLoggedIn,
                 login,
                 logout 
             }}

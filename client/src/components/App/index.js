@@ -10,9 +10,10 @@ import LoginRegisterPage from '../pages/Login-Register';
 import RankingsPage from '../pages/Rankings';
 import UserPage from '../pages/User';
 
-import ProtectedRoute from '../routes/ProtectedRoute';
-
 import { AuthProvider } from '../../context/auth';
+
+import ProtectedRoute from '../routes/ProtectedRoute';
+import PublicRoute from '../routes/PublicRoute';
 
 import './style.css';
 
@@ -28,9 +29,9 @@ function App() {
             <ProtectedRoute path="/rankings">
               <RankingsPage />
             </ProtectedRoute>
-            <Route path="/login">
+            <PublicRoute path="/login">
               <LoginRegisterPage/>
-            </Route>
+            </PublicRoute>
             <Route path="/">
               <HomePage/>
             </Route>
